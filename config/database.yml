@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: kz_newrest_dev
+  username: <%= Rails.application.credentials.dig(:db, :development, :user) %>
+  password: <%= Rails.application.credentials.dig(:db, :development, :password) %>
+  host: localhost
+
+test:
+  <<: *default
+  database: kz_newrest_test
+
+production:
+  <<: *default
+  database: kz_newrest_prod
+  username: kz_newrest
+  password: <%= ENV["KZ_NEWREST_DATABASE_PASSWORD"] %>
